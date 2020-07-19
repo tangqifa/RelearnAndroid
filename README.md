@@ -34,7 +34,7 @@
   	* 1.1.4 [计算机功耗](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8A%9F%E8%80%97.md)
   * 1.2 计算机的指令和运算
   	* 1.2.1 [计算机指令](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E4%BB%A4.md)
-  	* 1.2.1 [计算机运算](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%90%E7%AE%97.md)
+  	* 1.2.2 [计算机运算](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%90%E7%AE%97.md)
   * 1.3 处理器设计
     * 1.3.1 [CPU](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/CPU.md)
     * 1.3.2 [其他处理器](https://github.com/tangqifa/RelearnAndroid/blob/master/content/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E5%85%B6%E4%BB%96%E5%A4%84%E7%90%86%E5%99%A8.md)
