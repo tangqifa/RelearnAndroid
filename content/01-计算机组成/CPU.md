@@ -386,6 +386,104 @@ int main() {
 }
 ```
 
+汇编代码：
+
+```assembly
+int main() {
+0: 55 push rbp
+1: 48 89 e5 mov rbp,rsp
+int a = 1;
+4: c7 45 fc 01 00 00 00 mov DWORD PTR [rbp-0x4],0x1
+int b = 2;
+b: c7 45 f8 02 00 00 00 mov DWORD PTR [rbp-0x8],0x2
+a = a + 2;
+12: 83 45 fc 02 add DWORD PTR [rbp-0x4],0x2
+b = a + 3;
+16: 8b 45 fc mov eax,DWORD PTR [rbp-0x4]
+19: 83 c0 03 add eax,0x3
+1c: 89 45 f8 mov DWORD PTR [rbp-0x8],eax
+}
+1f: 5d pop rbp
+20: c3 ret
+```
+
+你可以看到，在内存地址为12的机器码，我们把0x2添加到 rbp-0x4 对应的内存地址里面。然后，在紧接着
+的内存地址为16的机器码，我们又要从rbp-0x4这个内存地址里面，把数据写入到eax这个寄存器里面。
+
+所以，我们需要保证，在内存地址为16的指令读取rbp-0x4里面的值之前，内存地址12的指令写入到rbp-
+0x4的操作必须完成。这就是先写后读所面临的数据依赖。如果这个顺序保证不了，我们的程序就会出错。
+
+这个先写后读的依赖关系，我们一般被称之为**数据依赖**，也就是Data Dependency。
+
+#### 先读后写（Write After Read）
+
+```c
+int main() {
+int a = 1;
+int b = 2;
+a = b + a;
+b = a + b;
+}
+```
+
+汇编代码：
+
+```assembly
+1: 48 89 e5 mov rbp,rsp
+int a = 1;
+4: c7 45 fc 01 00 00 00 mov DWORD PTR [rbp-0x4],0x1
+int b = 2;
+b: c7 45 f8 02 00 00 00 mov DWORD PTR [rbp-0x8],0x2
+a = b + a;
+12: 8b 45 f8 mov eax,DWORD PTR [rbp-0x8]
+15: 01 45 fc add DWORD PTR [rbp-0x4],eax
+b = a + b;
+18: 8b 45 fc mov eax,DWORD PTR [rbp-0x4]
+1b: 01 45 f8 add DWORD PTR [rbp-0x8],eax
+}
+1e: 5d pop rbp
+1f: c3 ret
+```
+
+我们同样看看对应生成的汇编代码。在内存地址为15的汇编指令里，我们要把 eax 寄存器里面的值读出
+来，再加到 rbp-0x4 的内存地址里。接着在内存地址为18的汇编指令里，我们要再写入更新 eax 寄存器里
+面。
+
+如果我们在内存地址18的eax的写入先完成了，在内存地址为15的代码里面取出 eax 才发生，我们的程序计
+算就会出错。这里，我们同样要保障对于eax的先读后写的操作顺序。
+
+这个先读后写的依赖，一般被叫作**反依赖**，也就是Anti-Dependency。
+
+#### 写后再写（Write After Write）
+
+```c
+int main() {
+int a = 1;
+a = 2;
+}
+```
+
+汇编代码：
+
+```assembly
+
+int main() {
+0: 55 push rbp
+1: 48 89 e5 mov rbp,rsp
+int a = 1;
+4: c7 45 fc 01 00 00 00 mov DWORD PTR [rbp-0x4],0x1
+a = 2;
+b: c7 45 fc 02 00 00 00 mov DWORD PTR [rbp-0x4],0x2
+}
+```
+
+在这个情况下，你会看到，内存地址4所在的指令和内存地址b所在的指令，都是将对应的数据写入到 rbp-
+0x4 的内存地址里面。如果内存地址b的指令在内存地址4的指令之后写入。那么这些指令完成之后，rbp-
+0x4 里的数据就是错误的。这就会导致后续需要使用这个内存地址里的数据指令，没有办法拿到正确的值。
+所以，我们也需要保障内存地址4的指令的写入，在内存地址b的指令的写入之前完成。
+
+这个写后再写的依赖，一般被叫作**输出依赖**，也就是Output Dependency。
+
 
 
 ## Superscalar和VLIW
