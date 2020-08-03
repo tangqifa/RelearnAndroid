@@ -510,6 +510,16 @@ b: c7 45 fc 02 00 00 00 mov DWORD PTR [rbp-0x4],0x2
 到下一个步骤，而是给了一个什么都没有的空气泡。这也是为什么，我们的流水线停顿，又被叫作流水线冒
 泡（Pipeline Bubble）的原因。
 
+### NOP操作和指令对齐
+
+
+
+
+
+
+
+
+
 ## Superscalar和VLIW
 
 ## SIMD
