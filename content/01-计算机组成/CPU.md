@@ -373,6 +373,19 @@ CPU在同一个时钟周期，同时在运行两条计算机指令的不同阶�
 类，分别是先写后读（Read After Write，RAW）、先读后写（Write After Read，WAR）和写后再写
 （Write After Write，WAW）。下面，我们分别看一下这几种情况。
 
+#### 先写后读（Read After Write）
+
+这里有一段简单的C语言代码编译出来的汇编指令。这段代码简单地定义两个变量 a 和 b，然后计算 a = a + 2。再根据计算出来的结果，计算 b = a + 3。
+
+```c
+int main() {
+    int a = 1;
+    int b = 2;
+    a = a + 2;
+    b = a + 3;
+}
+```
+
 
 
 ## Superscalar和VLIW
