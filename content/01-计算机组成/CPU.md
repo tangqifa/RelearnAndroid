@@ -784,9 +784,37 @@ Prediction），或者叫1比特饱和计数（1-bit saturating counter）。这
 
 #### 为什么循环嵌套的改变会影响性能？
 
+```java
+public class BranchPrediction {
+    public static void main(String args[]) {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 1000; j++) {
+                for (int k = 0; k < 10000; k++) {
+                }
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Time spent is " + (end - start));
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                for (int k = 0; k < 100; k++) {
+                }
+            }
+        }
+        end = System.currentTimeMillis();
+        System.out.println("Time spent is " + (end - start) + "ms");
+    }
+}
+```
 
+这是一个简单的三重循环，里面没有任何逻辑代码。我们用两种不同的循环顺序各跑一次。第一次，最外重
+循环循环了100次，第二重循环1000次，最内层的循环了10000次。第二次，我们把顺序倒过来，最外重循
+环10000次，第二重还是1000次，最内层100次。
 
-
+你可以先猜一猜，这样两次运行，花费的时间是一样的么？结果应该会让你大吃一惊。我们可以看看对应的
+命令行输出。
 
 
 
