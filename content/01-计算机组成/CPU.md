@@ -817,7 +817,7 @@ public class BranchPrediction {
 命令行输出。
 
 ```tex
-ime spent in first loop is 5ms
+Time spent in first loop is 5ms
 Time spent in second loop is 15ms
 ```
 
@@ -846,24 +846,6 @@ Time spent in second loop is 15ms
 到这里，相信你能猜到为什么同样空转次数相同的循环代码，第一段代码运行的时间要少得多了。因为第一
 段代码发生“分支预测”错误的情况比较少，更多的计算机指令，在流水线里顺序运行下去了，而不需要把
 运行到一半的指令丢弃掉，再去重新加载新的指令执行
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Superscalar和VLIW
 
