@@ -870,6 +870,10 @@ Time spent in second loop is 15ms
 里面取出多条指令，然后分发给多个并行的指令译码器，进行译码，然后对应交给不同的功能单元去处理。
 这样，我们在一个时钟周期里，能够完成的指令就不只一条了。IPC也就能做到大于1了。
 
+![cpu34](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghnb7brk9qj310k0lcn0r.jpg)
+
+这种CPU设计，我们叫作**多发射**（Mulitple Issue）和**超标量**（Superscalar）。
+
 ## SIMD
 
 ## 异常和中断
